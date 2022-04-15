@@ -16,9 +16,7 @@ CREATE TABLE "Ingredient" (
     "name" TEXT NOT NULL,
     "url" TEXT,
     "description" TEXT,
-    "recipeCategoryId" INTEGER,
-    CONSTRAINT "Ingredient_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Ingredient_recipeCategoryId_fkey" FOREIGN KEY ("recipeCategoryId") REFERENCES "RecipeCategory" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+    CONSTRAINT "Ingredient_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -54,10 +52,12 @@ CREATE TABLE "Mixer" (
 -- CreateTable
 CREATE TABLE "Tasting" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "authorId" INTEGER NOT NULL,
     "recipeId" INTEGER NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "mixerId" INTEGER NOT NULL,
+    "decistars" INTEGER NOT NULL,
+    "comments" TEXT,
     CONSTRAINT "Tasting_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Tasting_recipeId_fkey" FOREIGN KEY ("recipeId") REFERENCES "Recipe" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Tasting_mixerId_fkey" FOREIGN KEY ("mixerId") REFERENCES "Mixer" ("id") ON DELETE RESTRICT ON UPDATE CASCADE

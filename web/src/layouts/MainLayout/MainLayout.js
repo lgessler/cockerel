@@ -5,7 +5,13 @@ import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 
+import { useAuth } from '@redwoodjs/auth'
+import { routes, navigate } from '@redwoodjs/router'
+
+
 const MainLayout = ({ children }) => {
+  const { isAuthenticated, currentUser, logOut } = useAuth()
+
   return (
     <>
       <Box sx={{flexGrow: 1}}>
@@ -14,7 +20,9 @@ const MainLayout = ({ children }) => {
             <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
               Hell
             </Typography>
-            <Button disabled color="inherit">Login</Button>
+            { !isAuthenticated
+            ? <Button color="inherit" onClick={() => navigate(routes.login()) }>Login</Button>
+            : <Button color="inherit" onClick={logOut}>Log Out</Button>}
           </Toolbar>
         </AppBar>
       </Box>
