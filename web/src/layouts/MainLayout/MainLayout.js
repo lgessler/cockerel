@@ -11,6 +11,7 @@ import { routes, navigate } from '@redwoodjs/router'
 
 const MainLayout = ({ children }) => {
   const { isAuthenticated, currentUser, logOut } = useAuth()
+  console.log(currentUser)
 
   return (
     <>
@@ -20,7 +21,7 @@ const MainLayout = ({ children }) => {
             <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
               Hell
             </Typography>
-            { !isAuthenticated
+            { !currentUser
             ? <Button color="inherit" onClick={() => navigate(routes.login()) }>Login</Button>
             : <Button color="inherit" onClick={logOut}>Log Out</Button>}
           </Toolbar>
@@ -28,7 +29,9 @@ const MainLayout = ({ children }) => {
       </Box>
       <main>
         <Container>
-          {children}
+          <Box  mt={1}>
+            {children}
+          </Box>
         </Container>
       </main>
     </>
